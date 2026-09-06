@@ -1,6 +1,6 @@
 # Samuel Egwu — Portfolio
 
-Personal portfolio site. Next.js 15 (App Router), React 19, TypeScript, Tailwind CSS v4. Statically rendered — no database, no API keys, no server work at request time.
+Personal portfolio site. Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS v4. Statically rendered — no database, no API keys, no server work at request time.
 
 ## Development
 
