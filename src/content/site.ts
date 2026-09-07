@@ -8,11 +8,11 @@ export const site = {
   initials: "SE",
   role: "Lead AI/ML Engineer",
   tagline:
-    "AI/ML Engineer building production-grade intelligent systems - agentic AI, evaluation, and the infrastructure underneath.",
+    "Lead AI/ML Engineer building production agentic AI - multi-agent systems, LLM evaluation, and the safety rails that let a model near real money.",
   // Used for canonical URLs, sitemap and social cards. Set this to your real domain after deploying.
   url: "https://samuelegwu.vercel.app",
   location: "Abuja, Nigeria",
-  availability: "Open to AI/ML engineering roles",
+  availability: "Open to Senior & Lead AI / Agentic AI roles",
 };
 
 /**
@@ -23,7 +23,10 @@ export const site = {
 export const contact = {
   email: "egwusamuel2015@gmail.com",
   linkedin: "https://www.linkedin.com/in/samuel-david-egwu-aa6484184/",
-  github: "https://github.com/Esammy",
+  // Deliberately blank. The public profile does not contain any of the work on
+  // this site, so the link sent recruiters somewhere weaker than the portfolio.
+  // Restore "https://github.com/Esammy" once the profile is curated.
+  github: "",
   // A public phone number attracts recruiter spam. Blank it to hide the row.
   phone: "+234 810 036 8023",
   x: "",
@@ -67,6 +70,8 @@ export type Project = {
   title: string;
   summary: string;
   featured?: boolean;
+  /** "more" demotes a project to the compact list below the main grid. */
+  tier?: "more";
   metrics?: { value: string; label: string }[];
   callout?: { value: string; label: string };
   tags: string[];
@@ -78,11 +83,18 @@ export type Project = {
   };
   /** Optional external link shown in the dialog footer. */
   link?: { href: string; label: string };
+  /**
+   * Product this is running in today, shown as a "Live in X" badge.
+   * Only set where the work is actually shipped to users — a link to a live
+   * product is not the same claim as the work being live inside it.
+   */
+  shipped?: string;
 };
 
 export const projects: Project[] = [
   {
     slug: "nivram",
+    shipped: "BrandDrive",
     index: "01",
     category: "Agentic AI / Production",
     title: "Nivram — Production Multi-Agent AI Platform",
@@ -109,19 +121,21 @@ export const projects: Project[] = [
         "Built the tool layer to 280+ schema-validated definitions. Every capability the model can reach is a typed contract with a permission boundary and an audit trail, never open database access.",
         "Solved tool selection at that scale by scoping the catalogue per agent and per active workflow, so context stays small even though the platform's total surface is large.",
         "Added a second multi-agent system on the same foundation — a research and advisory board where a chief architect, deep researcher, devil's advocate and internal auditor argue a business question before a responder writes the answer.",
-        "Built the front end myself: 21 React components and 14 hooks covering token-by-token streaming, conversation rooms and members, document Q&A, feedback capture, and a credits and top-up flow wired to payment callbacks.",
+        "Built the front end myself: 20 React components and 12 hooks covering token-by-token streaming, conversation rooms and members, document Q&A, feedback capture, and a credits and top-up flow wired to payment callbacks.",
         "Tuned the cost path end to end — model routing per task, caching on repeated context, and streaming so time-to-first-token stays low regardless of how long the full answer takes.",
       ],
       outcome: [
         "A typical request settles around $0.007, which makes the system affordable to run at real user volume.",
         "The agent boundary doubles as a security boundary: data access is explicit, reviewable and revocable.",
         "New capability ships as a new tool rather than a prompt rewrite, so the platform grows without regressing what already worked.",
-        "The largest single contributor to the codebase — roughly 840 of its 1,080 commits.",
+        "The largest single contributor to the codebase by a wide margin, at over 70% of its commits.",
       ],
     },
+    link: { href: "https://branddrive.co/", label: "See Nivram on BrandDrive" },
   },
   {
     slug: "udara",
+    shipped: "Udara",
     index: "02",
     category: "Agentic AI / Fintech",
     title: "Udara — A WhatsApp Agent That Governs Real Money",
@@ -149,11 +163,12 @@ export const projects: Project[] = [
         "CI runs security invariants, a secret scan and redaction checks on every push.",
       ],
     },
+    link: { href: "https://useudara.com/", label: "Visit Udara" },
   },
   {
     slug: "monnie-sdk",
     index: "03",
-    category: "AI Infrastructure / Java",
+    category: "Agentic AI / SDK Design",
     title: "monnieSDK — Agentic AI SDK in Java",
     summary:
       "A Java 17 library that turns a question about your money into a grounded answer or an actionable confirmation card, with the model kept behind a port so the provider is a configuration change.",
@@ -176,12 +191,14 @@ export const projects: Project[] = [
         "The host backend integrates an agent by implementing three read ports; everything else ships with a working default.",
         "Provider migration is a configuration line, not a code change.",
         "Documented thoroughly enough that a new developer with only a JDK can build, run and publish it from the README alone.",
-        "Designed and written solo, end to end.",
+        "Designed and written solo, end to end — integrating into the Wisemonie backend ahead of its mobile release.",
       ],
     },
+    link: { href: "https://www.wisemonie.app/", label: "Visit Wisemonie" },
   },
   {
     slug: "eval",
+    shipped: "BrandDrive",
     index: "04",
     category: "LLMOps / Evaluation",
     title: "LLM Evaluation & Quality System",
@@ -208,9 +225,11 @@ export const projects: Project[] = [
         "Prompt and model changes became measurable experiments instead of judgement calls.",
       ],
     },
+    link: { href: "https://branddrive.co/", label: "Visit BrandDrive" },
   },
   {
     slug: "finance",
+    shipped: "BrandDrive",
     index: "05",
     category: "AI / Financial Intelligence",
     title: "AI Financial Intelligence",
@@ -233,9 +252,11 @@ export const projects: Project[] = [
         "Contributed to identifying fraudulent transactions exceeding ₦25 million, with traceable evidence for the investigation.",
       ],
     },
+    link: { href: "https://branddrive.co/", label: "Visit BrandDrive" },
   },
   {
     slug: "forecast",
+    tier: "more",
     index: "06",
     category: "Machine Learning / Forecasting",
     title: "Business Sales Forecasting",
@@ -257,6 +278,7 @@ export const projects: Project[] = [
   },
   {
     slug: "student",
+    tier: "more",
     index: "07",
     category: "Master's Research / ML",
     title: "Student Performance Prediction",
@@ -331,57 +353,58 @@ export const principles = [
 
 export const stack = [
   {
-    group: "Languages & ML",
-    items: [
-      "Python",
-      "TypeScript",
-      "Java 17",
-      "scikit-learn",
-      "TensorFlow",
-      "Keras",
-      "LightGBM",
-      "XGBoost",
-    ],
-  },
-  {
     group: "LLM & Agents",
     items: [
       "LangChain",
       "LangGraph",
-      "Transformers",
+      "Tool Calling",
+      "RAG",
       "OpenAI",
       "Anthropic",
       "Gemini",
       "AWS Bedrock",
       "Groq",
-      "Mistral",
+      "Transformers",
     ],
   },
   {
-    group: "Backend & Data",
+    group: "Evaluation & Reliability",
     items: [
-      "NestJS",
-      "FastAPI",
-      "Flask",
-      "Django",
-      "Node.js",
-      "Prisma",
-      "PostgreSQL",
-      "MongoDB",
-      "Celery",
+      "Golden Datasets",
+      "LLM-as-Judge",
+      "Regression Testing",
+      "Guardrails",
+      "Observability",
+      "Audit Trails",
+      "Jest / Pytest",
     ],
   },
   {
-    group: "Product & Infra",
+    group: "Machine Learning",
     items: [
-      "React",
-      "Next.js",
-      "Redux",
+      "Python",
+      "scikit-learn",
+      "TensorFlow",
+      "Keras",
+      "XGBoost",
+      "LightGBM",
+      "Time Series",
+      "NLP",
+    ],
+  },
+  {
+    group: "Production & Infra",
+    items: [
+      "AWS",
       "Docker",
       "Kubernetes",
-      "AWS",
-      "GitHub Actions",
-      "Jest / Pytest",
+      "CI/CD",
+      "TypeScript",
+      "Java 17",
+      "NestJS",
+      "FastAPI",
+      "PostgreSQL",
+      "React / Next.js",
     ],
   },
 ];
@@ -390,8 +413,10 @@ export const about = {
   kicker: "ABOUT SAMUEL",
   heading: "From models to systems.",
   paragraphs: [
-    "I'm Samuel Egwu, Lead AI/ML Engineer at BrandDrive, with 4+ years building intelligent systems that make it past the prototype and into production.",
-    "My work spans traditional machine learning, LLM applications, agentic AI, evaluation, and the infrastructure needed to operate all of it reliably. Lately most of it has been agents with real authority — over a bank account, over a business's books — which is where the engineering gets interesting.",
+    "I started in machine learning. Today I build AI systems that have to survive contact with real users, real data and real money.",
+    "I'm Lead AI/ML Engineer at BrandDrive, where I own a production multi-agent platform sitting in front of a banking product. Before that: four years of classical ML — forecasting, classification, feature engineering — which is still the foundation everything else rests on.",
+
+    "What changed is the stakes. Most of my work now involves agents with real authority: over a bank account, over a business's books. That turns the interesting questions from \"can the model do it?\" into \"what happens when it gets it wrong, and who is holding the keys when it does?\"",
     "The part I enjoy most is what comes after the first successful demo: how do we measure it, how do we make it cheaper, how do we make it safer, and how do we keep it working?",
   ],
   facts: [

@@ -63,9 +63,11 @@ export default function Contact() {
               Let&rsquo;s build something that deserves to be shipped.
             </h2>
             <p className="lede mt-6 max-w-lg">
-              Open to strong AI/ML engineering roles, production AI work, and
-              technically ambitious teams. Based in {site.location}, working
-              remotely with teams anywhere.
+              Actively looking for <strong className="text-chalk">Senior or
+              Lead AI/ML Engineer</strong> and{" "}
+              <strong className="text-chalk">Agentic AI Engineer</strong> roles
+              — production AI, multi-agent systems, evaluation and reliability.
+              Based in {site.location}, working remotely with teams anywhere.
             </p>
 
             {contact.email ? (

@@ -4,6 +4,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import SectionHeading from "./SectionHeading";
 import { projects, type Project } from "@/content/site";
 
+const featured = projects.filter((p) => p.tier !== "more");
+const more = projects.filter((p) => p.tier === "more");
+
 export default function Work() {
   const [openProject, setOpenProject] = useState<Project | null>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -32,11 +35,11 @@ export default function Work() {
       <SectionHeading
         kicker="Selected work"
         title="Work that goes beyond the demo."
-        note="A few systems and research projects that show how I approach AI — from model behaviour all the way down to production engineering."
+        note="Systems where the model was the easy part. Each one opens a case study covering the architecture, what I built and what it changed."
       />
 
       <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-6">
-        {projects.map((project, i) => (
+        {featured.map((project, i) => (
           <ProjectCard
             key={project.slug}
             project={project}
@@ -45,6 +48,49 @@ export default function Work() {
           />
         ))}
       </div>
+
+      {more.length ? (
+        <div className="mt-14" data-reveal="">
+          <p className="kicker">Earlier work</p>
+          <ul className="mt-5 overflow-hidden rounded-2xl border border-line">
+            {more.map((project) => (
+              <li key={project.slug} className="border-b border-line last:border-b-0">
+                <button
+                  type="button"
+                  onClick={() => setOpenProject(project)}
+                  className="group flex w-full flex-col gap-3 px-6 py-5 text-left transition-colors hover:bg-ink-2 md:flex-row md:items-center md:gap-6"
+                  aria-label={`Open case study: ${project.title}`}
+                >
+                  <span className="font-mono text-[0.65rem] text-mint">
+                    {project.index}
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span className="block text-[1.05rem] transition-colors group-hover:text-mint">
+                      {project.title}
+                    </span>
+                    <span className="mt-1 block text-[0.8rem] text-mist-dim">
+                      {project.category}
+                    </span>
+                  </span>
+                  <span className="hidden shrink-0 gap-2 lg:flex">
+                    {project.tags.slice(0, 3).map((tag) => (
+                      <span key={tag} className="tag">
+                        {tag}
+                      </span>
+                    ))}
+                  </span>
+                  <span
+                    className="shrink-0 text-mint transition-transform duration-300 group-hover:translate-x-1"
+                    aria-hidden="true"
+                  >
+                    ↗
+                  </span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
 
       <dialog
         ref={dialogRef}
@@ -151,6 +197,7 @@ function ProjectCard({
     ? "md:col-span-2 lg:col-span-6"
     : "lg:col-span-3";
 
+
   return (
     <article
       className={`panel panel-hover group flex flex-col ${span}`}
@@ -220,14 +267,25 @@ function ProjectCard({
           ))}
         </div>
 
-        <span className="mt-7 inline-flex items-center gap-2 text-sm text-mint">
-          View case study
-          <span
-            className="transition-transform duration-300 group-hover:translate-x-1"
-            aria-hidden="true"
-          >
-            ↗
+        <span className="mt-7 flex w-full flex-wrap items-center gap-x-4 gap-y-2 text-sm">
+          <span className="inline-flex items-center gap-2 text-mint">
+            View case study
+            <span
+              className="transition-transform duration-300 group-hover:translate-x-1"
+              aria-hidden="true"
+            >
+              ↗
+            </span>
           </span>
+          {project.shipped ? (
+            <span className="inline-flex items-center gap-2 text-[0.7rem] text-mist-dim sm:ml-auto">
+              <span
+                className="pulse-dot h-1.5 w-1.5 rounded-full bg-mint"
+                aria-hidden="true"
+              />
+              Live in {project.shipped}
+            </span>
+          ) : null}
         </span>
       </button>
     </article>
