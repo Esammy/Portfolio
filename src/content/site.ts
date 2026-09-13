@@ -4,7 +4,7 @@
  */
 
 export const site = {
-  name: "Samuel Egwu",
+  name: "Samuel David Egwu",
   initials: "SE",
   role: "Lead AI/ML Engineer",
   tagline:
@@ -42,7 +42,7 @@ export const contact = {
  */
 export const portrait: { src: string; alt: string } | null = {
   src: "/assets/samuel.jpg",
-  alt: "Samuel Egwu, Lead AI/ML Engineer",
+  alt: "Samuel David Egwu, Lead AI/ML Engineer",
 };
 
 // Set this to null (or delete the file) and both sections fall back to the
