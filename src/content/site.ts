@@ -4,7 +4,12 @@
  */
 
 export const site = {
-  name: "Samuel David Egwu",
+  name: "Egwu David Samuel",
+  // Other orders/forms people search for the same person - Nigerian naming
+  // convention puts the family name (Egwu) first, so search traffic splits
+  // across several orderings. Feeds JSON-LD Person.alternateName and the
+  // meta keywords list - see src/app/layout.tsx and src/app/page.tsx.
+  alternateNames: ["Egwu David Samuel", "Egwu Samuel", "David Samuel", "Samuel Egwu"],
   initials: "SE",
   role: "Lead AI/ML Engineer",
   tagline:
@@ -23,10 +28,7 @@ export const site = {
 export const contact = {
   email: "egwusamuel2015@gmail.com",
   linkedin: "https://www.linkedin.com/in/samuel-david-egwu-aa6484184/",
-  // Deliberately blank. The public profile does not contain any of the work on
-  // this site, so the link sent recruiters somewhere weaker than the portfolio.
-  // Restore "https://github.com/Esammy" once the profile is curated.
-  github: "",
+  github: "https://github.com/Esammy",
   // A public phone number attracts recruiter spam. Blank it to hide the row.
   phone: "+234 810 036 8023",
   x: "",

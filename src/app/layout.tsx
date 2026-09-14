@@ -40,6 +40,7 @@ export const metadata: Metadata = {
     "LLMOps",
     "Machine Learning",
     site.name,
+    ...site.alternateNames,
   ],
   authors: [{ name: site.name, url: site.url }],
   creator: site.name,
