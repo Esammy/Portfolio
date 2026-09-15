@@ -136,9 +136,51 @@ export const projects: Project[] = [
     link: { href: "https://branddrive.co/", label: "See Nivram on BrandDrive" },
   },
   {
+    slug: "judgekit",
+    index: "02",
+    category: "Open Source / LLM Evaluation",
+    title: "judgekit \u2014 Measuring the Judge, Not Just the Model",
+    summary:
+      "An open-source framework for the question almost nobody asks: is the LLM grading your outputs any good? Calibration against human labels, bias detection with a noise floor, and rubrics that refuse to be compared across versions.",
+    featured: true,
+    metrics: [
+      { value: "448", label: "tests, offline" },
+      { value: "94%", label: "coverage" },
+      { value: "0.82", label: "kappa vs humans" },
+    ],
+    tags: [
+      "Python",
+      "FastAPI",
+      "Kubernetes",
+      "Pydantic",
+      "Groq",
+      "Apache-2.0",
+    ],
+    study: {
+      lead: "DeepEval, Ragas and promptfoo all evaluate the model. Almost nothing rigorously evaluates the judge \u2014 so teams track a quality number for months without ever checking whether the thing producing it agrees with a human. I hit this in production when a judge flagged correct figures as hallucinated because it could not see the tool calls that produced them.",
+      work: [
+        "Made the rubric the spine: a rubric content-hashes its own grading-relevant fields, and that fingerprint travels onto every score, run and stored row. Comparing two runs graded under different rubrics raises rather than quietly returning a number, and a lockfile fails CI when a published rubric is edited in place \u2014 the one failure nothing else in a pipeline would notice.",
+        "Built calibration against human labels \u2014 quadratic weighted kappa, Krippendorff's alpha, Spearman, a confusion matrix \u2014 with a configurable floor that fails a build. Quadratic weighting is the headline for a reason: the same judge scores 0.70 weighted and 0.36 plain, because plain kappa punishes a near miss as hard as a wild one and makes usable judges look broken.",
+        "Measured bias rather than merely mitigating it. Position, verbosity and self-preference each report a magnitude in a stated unit. Verbosity is correlated against the judge-minus-human residual, not raw score, because long answers frequently are better and correlating length with score just rediscovers that.",
+        "Added a noise floor to position bias after measuring that a hosted model at temperature 0 is not deterministic: 2 of 8 cases drifted up to 0.57 scale points across byte-identical runs \u2014 exactly the movement the detector had been attributing to slot order. Each case is now scored a third time in the same slot, and a finding must clear the judge's own variance before it counts.",
+        "Treated missing evidence as its own finding. When no tool calls were captured the honest verdict is unverifiable, not wrong \u2014 one is a model problem, the other a logging problem \u2014 so the judge raises a flag instead of silently scoring low.",
+        "Shipped it as a library, a CLI, a FastAPI service with an arq worker pool, Kustomize manifests with a queue-depth HPA, and a Next.js dashboard. Verified on minikube: 630 queued runs draining while the pool scaled 1 \u2192 4 \u2192 6 under backlog.",
+      ],
+      outcome: [
+        "448 tests at 94% coverage that run with no API key and no network \u2014 CI proves it by blackholing DNS and running them again, rather than asserting it.",
+        "The tool applies its own gates to itself on every pull request: rubric verify, a calibration floor, a bias threshold. A project shipping a rubric lockfile that does not run it on itself is asking for trust it has not earned.",
+        "Against a live judge it found something real: ranks cases almost exactly as the humans do (Spearman 0.94) while sitting 0.62 points generous \u2014 a threshold to move, not a rubric to rewrite, and the tool says so in those words.",
+      ],
+    },
+    link: {
+      href: "https://github.com/Esammy/LLM-as-a-judge",
+      label: "Read the code on GitHub",
+    },
+  },
+  {
     slug: "udara",
     shipped: "Udara",
-    index: "02",
+    index: "03",
     category: "Agentic AI / Fintech",
     title: "Udara — A WhatsApp Agent That Governs Real Money",
     summary:
@@ -169,7 +211,7 @@ export const projects: Project[] = [
   },
   {
     slug: "monnie-sdk",
-    index: "03",
+    index: "04",
     category: "Agentic AI / SDK Design",
     title: "monnieSDK — Agentic AI SDK in Java",
     summary:
@@ -201,7 +243,7 @@ export const projects: Project[] = [
   {
     slug: "eval",
     shipped: "BrandDrive",
-    index: "04",
+    index: "05",
     category: "LLMOps / Evaluation",
     title: "LLM Evaluation & Quality System",
     summary:
@@ -232,7 +274,7 @@ export const projects: Project[] = [
   {
     slug: "finance",
     shipped: "BrandDrive",
-    index: "05",
+    index: "06",
     category: "AI / Financial Intelligence",
     title: "AI Financial Intelligence",
     summary:
@@ -259,7 +301,7 @@ export const projects: Project[] = [
   {
     slug: "forecast",
     tier: "more",
-    index: "06",
+    index: "07",
     category: "Machine Learning / Forecasting",
     title: "Business Sales Forecasting",
     summary:
@@ -281,7 +323,7 @@ export const projects: Project[] = [
   {
     slug: "student",
     tier: "more",
-    index: "07",
+    index: "08",
     category: "Master's Research / ML",
     title: "Student Performance Prediction",
     summary:
