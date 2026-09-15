@@ -4,7 +4,7 @@
  */
 
 export const site = {
-  name: "Egwu David Samuel",
+  name: "Samuel David Egwu",
   // Other orders/forms people search for the same person - Nigerian naming
   // convention puts the family name (Egwu) first, so search traffic splits
   // across several orderings. Feeds JSON-LD Person.alternateName and the
