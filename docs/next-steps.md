@@ -15,7 +15,10 @@ State as of this check:
 | **Repo About section** | ❌ **completely empty** |
 | judgekit on portfolio | ✅ added as project 02, committed |
 | judgekit on resume | ✅ copy ready in [resume.md](resume.md) |
+| Name consistent across all four | ✅ done |
 | "Chief Data Science" on resume | ❌ still says this |
+| **AgentLedgerSDK About** | ❌ **empty** |
+| **Fin-expert About** | ❌ **describes the hackathon, not the product** |
 
 ---
 
@@ -178,6 +181,120 @@ The shopfront is now real, so this is where the time goes. Per
 2. **Targeted outbound** — 5 a week, not 50. Companies whose product has an eval
    problem you can name in the first line. Reference the repo, not the CV.
 3. Repeat weekly. Track replies, not applications.
+
+---
+
+---
+
+## 7. The other two pinned repos
+
+Your three pins are `LLM-as-a-judge`, `AgentLedgerSDK` and `Fin-expert`. Both of
+the others are substantial and both are being undersold on the profile grid.
+
+### AgentLedgerSDK
+
+**About is empty**, so the card renders as a name and "TypeScript". This is the
+project that most directly backs the "AI safety rails" line in your headline, so
+a blank card here is a wasted pin.
+
+**Description:**
+
+```
+Middleware that intercepts an AI agent's tool calls: deterministic policy enforcement with no LLM in the hot path, a SHA-256 hash-chained audit ledger, and a sub-50ms kill switch.
+```
+
+**Topics:**
+
+```
+ai-agents
+ai-safety
+guardrails
+agent-security
+policy-engine
+audit-log
+tool-calling
+llm
+typescript
+langchain
+middleware
+observability
+```
+
+Worth adding to the README if it is not already there: the incident that
+motivated it. "An agent spent money nobody approved and there was no way to stop
+it or reconstruct what happened" is a far stronger opening than a feature list,
+and it is the same move that makes judgekit's README work.
+
+### Fin-expert — rename it
+
+Two problems, and the name is the bigger one.
+
+**The repo is called `Fin-expert`; the product is called NairaSage.** Nothing
+outside the README knows that. Rename the repo to `NairaSage` — GitHub redirects
+the old URL permanently, so nothing breaks, and you get a name someone might
+actually remember or search for. Update the remote afterwards:
+
+```bash
+git remote set-url origin https://github.com/Esammy/NairaSage.git
+```
+
+**The About describes the competition, not the project.** It currently reads
+"Global AI Hackathon Series with Qwen Cloud — Track: Agent Society". A visitor
+scanning your pins learns which hackathon you entered and nothing about what the
+thing does. Lead with the product; the hackathon belongs in the README.
+
+**Description:**
+
+```
+An AI financial co-pilot for Nigeria — 13 specialist agents that decompose a money question, work in parallel, and synthesise an answer grounded in persistent financial memory. Inflation, Naira volatility and local tax, handled natively.
+```
+
+**Topics:**
+
+```
+ai-agents
+multi-agent
+multi-agent-systems
+fintech
+nigeria
+llm
+rag
+pgvector
+django
+nextjs
+financial-assistant
+multimodal
+```
+
+### A mismatch worth deciding on
+
+Two of your three pinned repos appear nowhere on your portfolio, and the
+portfolio features monnieSDK, which is not pinned. Someone who arrives via
+GitHub and someone who arrives via the site are looking at two different
+engineers.
+
+Pick one story and make both surfaces tell it. The natural one, given your
+headline:
+
+| Pin | Why it is there |
+| --- | --- |
+| **LLM-as-a-judge** | LLM evaluation — measurable AI |
+| **AgentLedgerSDK** | AI safety rails — bounded agents |
+| **NairaSage** | agentic AI — multi-agent systems in production |
+
+That is exactly the three-part claim in your GitHub bio, with one repo proving
+each. If you keep those three pins, add AgentLedgerSDK and NairaSage to the
+portfolio so the two surfaces agree. If you would rather feature monnieSDK,
+pin it instead — but do not leave them contradicting each other.
+
+### While you are in the About panels
+
+- Tick **Releases** and **Packages** on all three.
+- None of the three has a social preview image. GitHub falls back to a generic
+  card when a link is shared on LinkedIn or X, which is where you will be
+  sharing them. Settings → General → Social preview.
+- `judgekit` is Apache-2.0 and the other two are MIT. Both are fine and nobody
+  will object; only worth a thought if you want consistency.
 
 ---
 
