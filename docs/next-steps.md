@@ -13,8 +13,8 @@ State as of this check:
 | Portfolio live on claimed domain | ✅ samuelegwu.vercel.app |
 | Availability CTA on portfolio | ✅ |
 | **Repo About section** | ❌ **completely empty** |
-| **judgekit on portfolio** | ❌ **absent** |
-| **judgekit on resume** | ❌ **absent** |
+| judgekit on portfolio | ✅ added as project 02, committed |
+| judgekit on resume | ✅ copy ready in [resume.md](resume.md) |
 | "Chief Data Science" on resume | ❌ still says this |
 
 ---
@@ -27,10 +27,13 @@ strangers browsing `llm-evaluation` ever find you.
 
 Go to the repo → the gear icon beside **About** (top right).
 
-**Description:**
+Keep the repo **name** as `LLM-as-a-judge` — it is the search term people
+actually type, and the Python package being `judgekit` is fine.
+
+**Description** (the pinned card truncates, so the point is in the first line):
 
 ```
-Most eval tools measure your model. This one measures your judge. Calibration against human labels, position/verbosity/self-preference bias detection with a noise floor, and version-pinned rubrics that refuse to compare across versions.
+Most eval tools measure your model — this one measures your judge. Calibration against human labels, measured bias detection, and version-pinned rubrics.
 ```
 
 **Website:**
@@ -60,89 +63,95 @@ Tick **Releases** and **Packages** in that same panel so `v0.1.0` shows.
 
 ---
 
-## 2. Put judgekit on the portfolio
+## 2. Put judgekit on the portfolio — done
 
-It is the **only** project on your site a stranger can click into and read the
-code of. Right now `LLM Evaluation & Quality System` (index 04) is the
-BrandDrive one — closed source, unverifiable, and nobody can check it.
+Added to `src/content/site.ts` as project **02**, directly after Nivram and
+marked `featured`; the rest shifted to 03–08. Typechecks and builds clean,
+committed but **not pushed** — pushing deploys it, so that is your call.
 
-In `src/content/site.ts`, insert after the Nivram entry and renumber the rest.
+It sits above the BrandDrive `LLM Evaluation & Quality System` (now 05)
+deliberately: that entry describes better work, but nobody outside BrandDrive
+can check a word of it. judgekit is the one a stranger can open and read.
 
-```ts
-{
-  slug: "judgekit",
-  index: "02",
-  category: "Open Source / LLM Evaluation",
-  title: "judgekit — Measuring the Judge, Not Just the Model",
-  summary:
-    "An open-source framework for the question almost nobody asks: is the LLM grading your outputs any good? Calibration against human labels, bias detection with a noise floor, and rubrics that refuse to be compared across versions.",
-  metrics: [
-    { value: "448", label: "tests, offline" },
-    { value: "94%", label: "coverage" },
-    { value: "0.82", label: "kappa, live judge" },
-  ],
-  tags: ["Python", "FastAPI", "Kubernetes", "Pydantic", "Groq", "Apache-2.0"],
-  study: {
-    lead:
-      "DeepEval, Ragas and promptfoo all evaluate the model. Almost nothing rigorously evaluates the judge — so teams track a quality number for months without ever checking whether the thing producing it agrees with a human. I hit this in production when a judge flagged correct figures as hallucinated because it could not see the tool calls that produced them.",
-    work: [
-      "Content-fingerprinted rubrics: comparing two runs graded under different rubric versions raises rather than returns a number, and a lockfile fails CI when a published rubric is edited in place.",
-      "Calibration against human labels — quadratic weighted kappa, Krippendorff's alpha, Spearman, a confusion matrix — with --min-kappa as a build gate. Quadratic weighting matters: the same judge scores 0.70 weighted and 0.36 plain, and plain kappa makes usable judges look broken.",
-      "Bias detection that reports a magnitude, not a checkbox: position, verbosity and self-preference. Verbosity is measured against the judge-minus-human residual, because correlating length with score just rediscovers that long answers are often better.",
-      "A noise floor on position bias. A hosted model at temperature 0 is not deterministic — 2 of 8 cases drifted up to 0.57 scale points across identical runs, which was exactly what the detector had been reporting as slot preference. Each case is now scored a third time in the same slot, and a finding must clear the judge's own variance.",
-      "Evidence as a first-class field, so 'unverifiable' and 'wrong' stay different findings — one is a model problem, the other a logging problem.",
-      "Shipped as a library, a CLI, a FastAPI service with an arq worker pool, Kustomize manifests with an HPA, and a Next.js dashboard. Deployed to minikube: 630 queued runs, pool scaling 1 → 4 → 6 under backlog.",
-    ],
-    outcome: [
-      "448 tests at 94% coverage that run with no API key and no network — CI proves it by blackholing DNS rather than asserting it.",
-      "The tool applies its own gates to itself on every PR: rubric verify, calibration floor, bias threshold.",
-      "Against a live judge it found something real — ranks cases almost exactly as humans do (Spearman 0.94) while sitting 0.62 points generous, which is a threshold to move rather than a rubric to rewrite.",
-    ],
-  },
-  link: {
-    href: "https://github.com/Esammy/LLM-as-a-judge",
-    label: "Read the code",
-  },
-},
-```
-
-Also worth doing while you are in there: the other projects have no repo links.
-Anything with public code should link to it.
+While you are in that file: none of the other projects link to a repo. Anything
+with public code should.
 
 ---
 
 ## 3. Two corrections on the resume
 
-**"Chief Data Science" → "Chief Data Scientist."** This is still on the live
-resume. A typo in your own job title is the kind of thing a reviewer notices and
-cannot unsee.
+### The CADEMIT title
 
-**Pick one name and use it everywhere.** Right now:
+Two separate problems, and the typo is the smaller one.
 
-| Where | Name |
-| --- | --- |
-| Resume | Egwu David Samuel |
-| Portfolio | Egwu David Samuel |
-| GitHub | Egwu David Samuel |
-| LinkedIn | Samuel David Egwu |
+**The typo.** "Chief Data Science" is not a job title. Whatever you decide
+below, it cannot stay as it is — a typo in your own title is the kind of thing a
+reviewer notices and cannot unsee.
 
-Three of four agree, so the cheapest fix is changing LinkedIn — but whichever you
-choose, a recruiter searching the name on your CV should find your LinkedIn
-first try.
+**The mismatch.** The title says *Chief Data Scientist*; the bullets underneath
+say you led a training programme, mentored 30+ aspiring data scientists and
+delivered 120+ hours of instruction. That is a teaching role, and it is a
+genuinely good one — but the title promises practice and the bullets deliver
+curriculum. A reviewer reading both notices the gap, and the charitable reading
+is title inflation.
+
+It also reads badly as a trajectory: *Chief Data Scientist* → *Consultant* →
+*Lead AI/ML Engineer* looks like two steps down to someone skimming.
+
+**Recommended:**
+
+```
+Chief Data Scientist — Training & Curriculum
+```
+
+This keeps the title you actually held, which matters for references and
+background checks — never retitle a real role. The qualifier makes the bullets
+agree with the heading, and it turns the trajectory problem into a non-issue,
+because a training track and an engineering track are not the same ladder.
+
+**If your contract did not literally say "Chief Data Scientist,"** use whichever
+of these is true instead: `Lead Data Science Instructor`, or
+`Head of Data Science Training`. Both are accurate and neither invites the
+inflation reading. Only you know which the paperwork says, and that is the one
+that has to go on the CV.
+
+Whichever you pick, teaching 30+ people the full ML lifecycle is a real
+credential — it is evidence you can explain hard things, which is most of what
+a lead does. Do not hide it behind a title that describes different work.
+
+**Standardise on "Samuel David Egwu" everywhere.**
+
+| Where | Currently | Change to |
+| --- | --- | --- |
+| LinkedIn | Samuel David Egwu | keep |
+| Resume / FlowCV | Egwu David Samuel | **Samuel David Egwu** |
+| Portfolio | Egwu David Samuel | **Samuel David Egwu** |
+| GitHub profile name | Egwu David Samuel | **Samuel David Egwu** |
+
+Surname-first is normal in Nigeria and reads correctly to a Nigerian reviewer.
+It does not survive the trip: an international recruiter reads "Egwu David
+Samuel" as first name Egwu, addresses the email to "Hi Egwu", and an ATS files
+you under a surname you do not use. LinkedIn's separate first/last fields make
+first-name-first the only option there anyway, which means LinkedIn is the one
+that is already right and the other three should follow it.
+
+The practical test is a recruiter copying the name off your CV into LinkedIn
+search. Today that lookup can fail. Make all four identical and it cannot.
+
+Note `docs/resume.md` currently has **Samuel Egwu** in Personal Details - use the
+full three-part form there too, so it matches your LinkedIn exactly.
 
 ---
 
 ## 4. Add judgekit to the resume
 
-Under **Projects**, above Udara:
+The full entry is written and ready to paste in
+**[resume.md → Selected Projects](resume.md)** — it goes first in that section,
+above Udara, because it is the only project on the CV a reader can verify for
+themselves in thirty seconds.
 
-> **judgekit — Open-Source LLM-as-a-Judge Evaluation Framework** · Python, FastAPI, Kubernetes
-> github.com/Esammy/LLM-as-a-judge
->
-> - Built and published a framework that measures LLM judges rather than models — calibration against human labels (quadratic kappa, Krippendorff's alpha, Spearman), and position/verbosity/self-preference bias detection reporting measured magnitudes.
-> - Added a noise floor to position-bias detection after measuring that a hosted model at temperature 0 moved 2 of 8 cases by up to 0.57 scale points across identical runs — without it the detector reported sampling variance as bias.
-> - Version-pinned rubrics with content fingerprints; the runner refuses to compare scores graded under different rubrics, and a lockfile fails CI on an in-place edit.
-> - 448 tests at 94% coverage running with no API key and no network, proven in CI by blackholing DNS; shipped with Docker, Kustomize manifests and an HPA, verified on minikube scaling a worker pool 1 → 6 under backlog.
+In FlowCV, put `github.com/Esammy/LLM-as-a-judge` in the project's link field so
+it renders as a clickable URL rather than plain text.
 
 ---
 
